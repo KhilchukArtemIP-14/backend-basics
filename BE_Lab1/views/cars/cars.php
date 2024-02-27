@@ -13,40 +13,34 @@
     <h1>Car Information</h1>
 
     <?php
-    use classes\database;
 
-    require "..\..\classes\database.php";
-    // SQL query to fetch data from car_info table
-    $sql = "SELECT * FROM car_info";
+    require "..\..\classes\car.php";
 
-    $db = new database("stolen_autos_db");
+    $car = new car();
 
-    // Establish a database connection
-    $conn = $db->getConnection();
-    $conn->select_db("stolen_autos_db");
+    $result = $car->getCars();
 
-    // Execute the SQL query
-    $result = $conn->query($sql);
 
-    // Check if there are any rows returned
     if ($result->num_rows > 0) {
-        // Output the table headers
+
         echo '<table class="table">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Date Created</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>';
 
-        // Loop through each row in the result set and output data in table rows
+
         while ($row = $result->fetch_assoc()) {
             echo '<tr>
                         <td>' . $row["id"] . '</td>
-                        <td><a href="car.php?id='. $row["id"] .'">' . $row["brand_name"] .' '. $row["model_name"] . '</a></td>
+                        <td><a ">' . $row["brand_name"] .' '. $row["model_name"] . '</a></td>
                         <td>' . $row["date_created"] . '</td>
+                        <td><a class="btn btn-primary" href="car.php?id='. $row["id"] . '">View</a></td>
                       </tr>';
         }
 
@@ -55,9 +49,6 @@
     } else {
         echo '<p>No records found</p>';
     }
-
-    // Close the database connection
-    $conn->close();
     ?>
 </div>
 </body>

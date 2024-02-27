@@ -11,23 +11,13 @@
 <body>
 <div class="container">
     <h1>Theft Status</h1>
-
     <?php
-    use classes\database;
 
-    require "..\..\classes\database.php";
+    require "..\..\classes\status.php";
 
+    $status = new status();
 
-    $db = new database("stolen_autos_db");
-
-
-    $conn = $db->getConnection();
-    $conn->select_db("stolen_autos_db");
-
-
-    $sql = "SELECT * FROM theft_status";
-
-    $result = $conn->query($sql);
+    $result = $status->getStatuses();
 
     if ($result->num_rows > 0) {
         echo '<table class="table">
@@ -36,6 +26,7 @@
                             <th scope="col">ID</th>
                             <th scope="col">Status Name</th>
                             <th scope="col">Date Created</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>';
@@ -43,8 +34,9 @@
         while ($row = $result->fetch_assoc()) {
             echo '<tr>
                         <td>' . $row["id"] . '</td>
-                        <td><a href="status.php?id=' . $row["id"] . '">' . $row["status_name"] . '</a></td>
+                        <td>' . $row["status_name"] . '</td>
                         <td>' . $row["date_created"] . '</td>
+                        <td><a class="btn btn-primary" href="status.php?id=' . $row["id"] . '">View</a></td>
                       </tr>';
         }
 
@@ -53,8 +45,6 @@
     } else {
         echo '<p>No records found</p>';
     }
-
-    $conn->close();
     ?>
 </div>
 </body>

@@ -14,25 +14,10 @@
 
     <h1>Theft records</h1>
     <?php
-    use classes\database;
+    require '..\..\classes\record.php';
 
-    require "..\..\classes\database.php";
-
-    $db = new database("stolen_autos_db");
-
-    $conn=$db->getConnection();
-
-    $sql = "SELECT tr.id, tr.car_info_id, tr.status_id, tr.car_number, tr.owner_surname, tr.date_created,
-            ts.status_name, ci.brand_name, ci.model_name
-            FROM theft_record tr
-            INNER JOIN theft_status ts ON tr.status_id = ts.id
-            INNER JOIN car_info ci ON tr.car_info_id = ci.id
-            ORDER BY tr.id";
-    $db = new database("stolen_autos_db");
-
-    $conn=$db->getConnection();
-    $conn->select_db("stolen_autos_db");
-    $result = $conn->query($sql);
+    $records=new record();
+    $result = $records->getRecords();
 
 
     echo '<table class="table">
@@ -45,7 +30,6 @@
             <th scope="col">Owner Surname</th>
             <th scope="col">Date Created</th>
             <th scope="col"></th>
-
         </tr>
         </thead>
         <tbody>';
