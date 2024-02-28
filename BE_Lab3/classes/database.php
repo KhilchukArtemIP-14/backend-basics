@@ -98,7 +98,7 @@ class database
     {
         $this->conn->select_db($this->dbname);
 
-        $sqlGrantPrivileges = "GRANT ALL PRIVILEGES ON *.* TO '$username'@'%' IDENTIFIED BY '$password' WITH GRANT OPTION";
+        $sqlGrantPrivileges = "GRANT ALL PRIVILEGES ON *.* TO '$username'@'%' WITH GRANT OPTION";
         $this->conn->query($sqlGrantPrivileges);
     }
 }

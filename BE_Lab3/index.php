@@ -27,8 +27,7 @@ if(!$db->checkDbExistence()){
 </head>
 <body>
 <div class="container">
-
-    <h1>Welcome to lab2!</h1>
+    <h1>Welcome to lab3!</h1>
     <h3>All tables:</h3>
     <ul class="list-group">
         <a href="views/cars/cars.php" class="list-group-item list-group-item-action">Car information</a>
